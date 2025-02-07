@@ -2,7 +2,7 @@ from typing import Any
 import requests
 from requests.models import Response
 from bs4 import BeautifulSoup
-
+import re
 
 class Scrapper:
     """
@@ -56,6 +56,9 @@ class Scrapper:
         """
 
         urls: list = []
+        if re.match(r'^(mailto:|tel:)', self.url):
+            return urls
+        
         content: str = requests.get(self.url).text
         soup = BeautifulSoup(content, "html.parser")
         for link in soup.find_all('a'):
@@ -67,10 +70,10 @@ class Scrapper:
                         continue
             urls.append(link.get("href"))
         return urls
-
+    
     def getText(self) -> dict:
         """getText function
-
+    
         Returns:
             dict
         """
@@ -79,13 +82,14 @@ class Scrapper:
         if self.crawl:
             for url in urls:
                 try:
-                    if url is not None:
+                    if url is not None and not re.match(r'^(mailto:|tel:)', url):
                         req: Response = requests.get(url)
                         contents.append(req.text)
                 except requests.exceptions.MissingSchema:
                     pass
         else:
-            req: Response = requests.get(self.url)
-            contents.append(req.text)
+            if not re.match(r'^(mailto:|tel:)', self.url):
+                req: Response = requests.get(self.url)
+                contents.append(req.text)
         contents = Scrapper(contents=contents).clean()
         return {"text": contents, "urls": urls}
