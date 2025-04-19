@@ -1,6 +1,7 @@
 .git
 .vscode
-__pycache__
-venv
+dist
+node_modules
+output
 .idea
 test.py

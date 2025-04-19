@@ -21,7 +21,7 @@ cd TheScrapper
 3. Install all the requirements:
 
 ```bash
-pip3 install -r requirements.txt
+npm install
 ```
 
 ## Usage
@@ -31,25 +31,25 @@ TheScrapper offers several usage options:
 - Simple scan:
 
 ```bash
-python3 TheScrapper.py --url URL
+ts-node TheScrapper.ts --url URL
 ```
 
 - Scan and crawl found URLs:
 
 ```bash
-python3 TheScrapper.py --url URL --crawl
+ts-node TheScrapper.ts --url URL --crawl
 ```
 
 - Retrieve more informaton about found social media accounts:
 
 ```bash
-python3 TheScrapper.py --url URL -s
+ts-node TheScrapper.ts --url URL -s
 ```
 
 For additional command-line arguments and options, refer to the help menu:
 
 ```bash
-python3 TheScrapper.py -h
+ts-node TheScrapper.ts -h
 ```
 
 To remove the banner, simply add the "-b" flag.
